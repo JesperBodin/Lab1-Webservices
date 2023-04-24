@@ -1,4 +1,4 @@
 package org.example.service;
 public interface CurrencyConverter {
-	double getCurrencyConverter();
+	double getCurrency(double amount);
 }
