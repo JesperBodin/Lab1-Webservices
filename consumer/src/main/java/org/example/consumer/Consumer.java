@@ -21,20 +21,32 @@ public class Consumer {
 				case "1" -> {
 					System.out.println("You choose Danish Crowns (DKK)");
 					System.out.println("Enter amount of SEK you want to convert: ");
-					convertToDkk(Double.parseDouble(sc.nextLine()));
-					askToMakeAnotherConversion();
+					try {
+						convertToDkk(Double.parseDouble(sc.nextLine()));
+						flag = askToMakeAnotherConversion();
+					} catch (Exception e){
+						System.out.println("Invalid Input - Try again");
+					}
 				}
 				case "2" -> {
 					System.out.println("You choose Euros (EUR)");
 					System.out.println("Enter amount of SEK you want to convert:");
-					convertToEur(Double.parseDouble(sc.nextLine()));
-					askToMakeAnotherConversion();
+					try {
+						convertToEur(Double.parseDouble(sc.nextLine()));
+						flag = askToMakeAnotherConversion();
+					} catch (Exception e) {
+						System.out.println("Invalid Input - Try again");
+					}
 				}
 				case "3" -> {
 					System.out.println("You choose Japanese Yen (Yen)");
 					System.out.println("Enter amount of SEK you want to convert:");
-					convertToYen(Double.parseDouble(sc.nextLine()));
-					askToMakeAnotherConversion();
+					try {
+						convertToYen(Double.parseDouble(sc.nextLine()));
+						flag = askToMakeAnotherConversion();
+					} catch (Exception e) {
+						System.out.println("Invalid Input - Try again");
+					}
 				}
 				case "0" -> {
 					System.out.println("Closing...");
@@ -78,7 +90,9 @@ public class Consumer {
 
 	private static boolean askToMakeAnotherConversion(){
 		System.out.println("Do you want to make another conversion?(Y/N)");
-		return sc.nextLine().equalsIgnoreCase("Y");
+		if(!sc.nextLine().equalsIgnoreCase("Y"))
+			return false;
+		return true;
 
 	}
 	private static void printMenu(){
