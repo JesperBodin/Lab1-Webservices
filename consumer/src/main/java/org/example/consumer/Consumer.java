@@ -13,49 +13,61 @@ public class Consumer {
 
 	public static void main(String[] args) {
 
-		boolean flag = true;
-		while(flag){
+		String choice;
+
+		do {
 			printMenu();
 
-			switch (sc.nextLine()) {
-				case "1" -> {
-					System.out.println("You choose Danish Crowns (DKK)");
-					System.out.println("Enter amount of SEK you want to convert: ");
-					try {
-						convertToDkk(Double.parseDouble(sc.nextLine()));
-						flag = askToMakeAnotherConversion();
-					} catch (Exception e){
-						System.out.println("Invalid Input - Try again");
-					}
-				}
-				case "2" -> {
-					System.out.println("You choose Euros (EUR)");
-					System.out.println("Enter amount of SEK you want to convert:");
-					try {
-						convertToEur(Double.parseDouble(sc.nextLine()));
-						flag = askToMakeAnotherConversion();
-					} catch (Exception e) {
-						System.out.println("Invalid Input - Try again");
-					}
-				}
-				case "3" -> {
-					System.out.println("You choose Japanese Yen (Yen)");
-					System.out.println("Enter amount of SEK you want to convert:");
-					try {
-						convertToYen(Double.parseDouble(sc.nextLine()));
-						flag = askToMakeAnotherConversion();
-					} catch (Exception e) {
-						System.out.println("Invalid Input - Try again");
-					}
-				}
-				case "0" -> {
-					System.out.println("Closing...");
-					System.exit(0);
-				}
+			choice = sc.nextLine();
+
+			switch (choice) {
+				case "1" -> caseDKK();
+				case "2" -> caseEUR();
+				case "3" -> caseYEN();
+				case "0" -> quit();
 				default -> System.out.println("Bad input - Try again");
 			}
-		}
 
+			if (!askToMakeAnotherConversion())
+				choice = String.valueOf(0);
+
+		} while (!choice.equals("0"));
+	}
+
+	private static void quit() {
+		System.out.println("Closing...");
+		System.exit(0);
+	}
+
+	private static void caseYEN() {
+		System.out.println("You chose Japanese Yen (Yen)");
+		System.out.println("Enter amount of SEK you want to convert:");
+		try {
+			convertToYen(Double.parseDouble(sc.nextLine()));
+		} catch (Exception e) {
+			System.out.println("Invalid Input - Try again");
+		}
+	}
+
+	private static void caseEUR() {
+		System.out.println("You chose Euros (EUR)");
+		System.out.println("Enter amount of SEK you want to convert:");
+		try {
+			convertToEur(Double.parseDouble(sc.nextLine()));
+		} catch (Exception e) {
+			System.out.println("Invalid Input - Try again");
+		}
+	}
+
+	private static void caseDKK() {
+		System.out.println("You chose Danish Crowns (DKK)");
+		System.out.println("Enter amount of SEK you want to convert: ");
+		try {
+			convertToDkk(Double.parseDouble(sc.nextLine()));
+		} catch (Exception e) {
+			System.out.println("Invalid Input - Try again");
+
+		}
 	}
 
 
@@ -97,6 +109,8 @@ public class Consumer {
 	}
 	private static void printMenu(){
 		System.out.println("""
+    Currency Converter
+    ==================
     Please choose a Currency to convert from SEK
     1.Danish Crown (DKK)
     2.Euros (EUR)
